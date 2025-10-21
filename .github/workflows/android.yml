@@ -49,15 +49,13 @@ jobs:
       run: ./gradlew assembleDebug
 
     - name: Upload NonRoot Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: "auto_built_snapshot_nonRoot_${{ github.sha }}.apk"
         path: app/build/outputs/apk/nonRoot/debug/app-nonRoot-debug.apk
-        retention-days: 10
 
     - name: Upload Root Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: "auto_built_snapshot_root_${{ github.sha }}.apk"
         path: app/build/outputs/apk/root/debug/app-root-debug.apk
-        retention-days: 10
