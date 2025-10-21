@@ -32,8 +32,9 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: setup NDK
+    - name: set up NDK
       uses: nttld/setup-ndk@v1
+      id: setup-ndk
       with:
        ndk-version: r27
        local-cache: true
@@ -47,6 +48,11 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
+
+    - name: Create local.properties
+      run: |
+        echo "ndk.dir=${{ steps.setup-ndk.outputs.ndk-path }}" > local.properties
+      working-directory: ${{ github.workspace }}
 
     - name: Build with Gradle
       run: ./gradlew assembleDebug
